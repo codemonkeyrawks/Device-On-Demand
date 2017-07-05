@@ -9,7 +9,7 @@ Master Branch: <a href="https://travis-ci.org/codemonkeyrawks/Device-On-Demand/b
 <table>
 <tr>
 <td>
-<img src="http://i.imgur.com/yyYmYLZ.png?1" width="350" height="200">
+<img src="http://i.imgur.com/yyYmYLZ.png?1" width="350" height="350">
 </td>
 </tr>
 <tr>
