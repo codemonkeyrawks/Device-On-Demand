@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html ng-app="DeviceCheckout" lang="en-us">
+<head>
+    <title>Device on Demand</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="" />
+
+    <script type="text/javascript" src="~/Scripts/jquery-2.2.1.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="~/Scripts/lodash.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular.js"></script>
+    <script type="text/javascript" src="~/Scripts/Shared/devicecheckout.module.js"></script>
+    <script type="text/javascript" src="~/Scripts/Shared/devicecheckout.service.js"></script>
+    <script type="text/javascript" src="~/Scripts/Home/home.controller.js"></script>
+</head>
+<body>
+    <div id="HomeCtrl" ng-controller="HomeCtrl as vm">
+  
+        <!-- Master Page: Max Width: 600px -->
+        <div class="container-fluid" style="max-width: 600px">
+            <div class="row center-block">
+                <div class="col-md-12 col-sm-12 text-center" style="border: 1px solid black; margin: 10px">
+                    <h3 style="vertical-align: middle">
+                        <img ng-src={{vm.bsulogo}} style="width: 140px" class="text-left">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {{vm.studentName}}
+                    </h3>
+  
+                    <hr/>
+
+                    <h3> Device on Demand </h3>
+
+                    <!-- Category (Page 1) Select -->
+                    <div ng-repeat="item in vm.devicePreset track by $index" ng-show="vm.page1">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <img ng-src={{item.imgURL}} style="width: 200px" />
+                                </td>
+                                <td style="vertical-align: middle">
+                                    <button type="button" ng-click="vm.getPage1($index)" class="btn btn-default" style="width: 100px;"> {{item.categoryName}}</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Category (Page 2) Select -->
+                    <div ng-repeat="item in vm.getDeviceInfoUrl track by $index" ng-show="vm.page2">
+                        <hr />
+                        <table class="table">
+                            <tr class="text-center">
+                                <th class="text-center">Check</th>
+                                <th class="text-center">Image</th>
+                                <th class="text-center">Description</th>
+                            </tr>
+                            <tr class="text-center">
+                                <td>
+                                    <input type="checkbox" class="checkbox" ng-model="deviceCheck"/>
+                                </td>
+                                <td>
+                                    <img ng-src={{item[$index].imgUrl}} style="width: 200px"/> </td>
+                                <td>
+                                    <p>Zone: {{vm.zoneDetail[$index]}}</p>
+                                    <p>OS:{{item[$index].os}} </p>
+                                    <p>RAM:{{item[$index].ram}}</p>
+                                    <p>Software:{{item[$index].specialSw}}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div ng-show="vm.page2">
+                        <hr />
+                        <button type="button" class="btn btn-default" ng-click="vm.getPage2()">Reserve</button>
+                        <hr />
+                    </div>
+
+                    <!-- Category (Page 3) Select -->
+                    <div ng-show="vm.page3">
+
+                        <table class="table">
+                            <tr>
+                                <th class="text-center">Check-Out</th>
+                                <th class="text-center">Check-In</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Hour:</p>
+                                    <select class="form-control" ng-model="vm.hour1">
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <p>Hour:</p>
+                                    <select class="form-control" ng-model="vm.hour2">
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Min:</p>
+                                    <select class="form-control" ng-model="vm.min1">
+                                        <option value="00">00</option>
+                                        <option value="15">15</option>
+                                        <option value="30">30</option>
+                                        <option value="45">45</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <p>Min:</p>
+                                    <select class="form-control" ng-model="vm.min2">
+                                        <option value="00">00</option>
+                                        <option value="15">15</option>
+                                        <option value="30">30</option>
+                                        <option value="45">45</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Date:
+                                    <input type="date" ng-model="date1" />
+                                </td>
+                                <td>
+                                    Date:
+                                    <input type="date" ng-model="date2" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div ng-show="vm.page3">
+                        <hr />
+                        <button type="button" class="btn btn-default" ng-click="vm.getPage3()">Checkout</button>
+                        <hr />
+                    </div>
+
+
+                    <div ng-show="vm.page4">
+                        <hr/>
+                        <table class="table">
+                            <tr>
+                                <td>Order Processed Successfuly!</td>
+                            </tr>
+                            <tr>
+                                <td>Pick up location: {{vm.loc}}</td>
+                            </tr>
+                            <tr>
+                                <td>Pick up no later than: {{vm.hour1}}:{{vm.min1}}</td>
+                            </tr>
+                            <tr>
+                                <td>Return no later than: {{vm.hour2}}:{{vm.min2}}</td>
+                            </tr>
+                            <tr>
+                                <td>Reservation Number: #{{vm.random}}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                        <p>Team Code Monkeys Appathon 2016</p>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>

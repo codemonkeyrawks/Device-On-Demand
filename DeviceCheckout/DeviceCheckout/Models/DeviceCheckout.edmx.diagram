@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1c7d658732e34508b7090226b8bc05d4" Name="Diagram1">
+        <EntityTypeShape EntityType="DeviceCheckoutModel.deviceInfo" Width="1.5" PointX="6.125" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeviceCheckoutModel.devicePreset" Width="1.5" PointX="3.375" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeviceCheckoutModel.orderInfo" Width="1.5" PointX="11.125" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeviceCheckoutModel.studentInfo" Width="1.5" PointX="1.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeviceCheckoutModel.zone" Width="1.5" PointX="8.875" PointY="2" IsExpanded="true" />
+        <AssociationConnector Association="DeviceCheckoutModel.FK_deviceInfo_deviceInfo" />
+        <AssociationConnector Association="DeviceCheckoutModel.FK_deviceInfo_devicePreset" />
+        <AssociationConnector Association="DeviceCheckoutModel.FK_orderInfo_deviceInfo" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DeviceCheckoutModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="deviceInfo">
+          <Key>
+            <PropertyRef Name="serialId" />
+          </Key>
+          <Property Name="serialId" Type="int" Nullable="false" />
+          <Property Name="devicePresetId" Type="int" Nullable="false" />
+          <Property Name="zoneId" Type="int" Nullable="false" />
+          <Property Name="imgUrl" Type="text" Nullable="false" />
+          <Property Name="specialSw" Type="text" Nullable="false" />
+          <Property Name="description" Type="text" Nullable="false" />
+          <Property Name="os" Type="text" Nullable="false" />
+          <Property Name="model" Type="text" Nullable="false" />
+          <Property Name="ram" Type="text" Nullable="false" />
+          <Property Name="status" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="devicePreset">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="categoryName" Type="text" Nullable="false" />
+          <Property Name="imgURL" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="orderInfo">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="int" Nullable="false" />
+          <Property Name="serialId" Type="int" Nullable="false" />
+          <Property Name="dateCheckedOut" Type="datetime" Nullable="false" />
+          <Property Name="dateCheckIn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="studentInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="studentId" Type="int" Nullable="false" />
+          <Property Name="studentName" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="nameOfZone" Type="text" Nullable="false" />
+          <Property Name="hoursOpen" Type="datetime" Nullable="false" />
+          <Property Name="hoursClosed" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_deviceInfo_deviceInfo">
+          <End Role="zone" Type="Self.zone" Multiplicity="1" />
+          <End Role="deviceInfo" Type="Self.deviceInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zone">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="deviceInfo">
+              <PropertyRef Name="zoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_deviceInfo_devicePreset">
+          <End Role="devicePreset" Type="Self.devicePreset" Multiplicity="1" />
+          <End Role="deviceInfo" Type="Self.deviceInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="devicePreset">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="deviceInfo">
+              <PropertyRef Name="devicePresetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orderInfo_deviceInfo">
+          <End Role="deviceInfo" Type="Self.deviceInfo" Multiplicity="1" />
+          <End Role="orderInfo" Type="Self.orderInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="deviceInfo">
+              <PropertyRef Name="serialId" />
+            </Principal>
+            <Dependent Role="orderInfo">
+              <PropertyRef Name="serialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DeviceCheckoutModelStoreContainer">
+          <EntitySet Name="deviceInfo" EntityType="Self.deviceInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="devicePreset" EntityType="Self.devicePreset" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orderInfo" EntityType="Self.orderInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="studentInfo" EntityType="Self.studentInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zone" EntityType="Self.zone" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_deviceInfo_deviceInfo" Association="Self.FK_deviceInfo_deviceInfo">
+            <End Role="zone" EntitySet="zone" />
+            <End Role="deviceInfo" EntitySet="deviceInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_deviceInfo_devicePreset" Association="Self.FK_deviceInfo_devicePreset">
+            <End Role="devicePreset" EntitySet="devicePreset" />
+            <End Role="deviceInfo" EntitySet="deviceInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orderInfo_deviceInfo" Association="Self.FK_orderInfo_deviceInfo">
+            <End Role="deviceInfo" EntitySet="deviceInfo" />
+            <End Role="orderInfo" EntitySet="orderInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DeviceCheckoutModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="deviceInfo">
+          <Key>
+            <PropertyRef Name="serialId" />
+          </Key>
+          <Property Name="serialId" Type="Int32" Nullable="false" />
+          <Property Name="devicePresetId" Type="Int32" Nullable="false" />
+          <Property Name="zoneId" Type="Int32" Nullable="false" />
+          <Property Name="imgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="specialSw" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="os" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ram" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="zone" Relationship="DeviceCheckoutModel.FK_deviceInfo_deviceInfo" FromRole="deviceInfo" ToRole="zone" />
+          <NavigationProperty Name="devicePreset" Relationship="DeviceCheckoutModel.FK_deviceInfo_devicePreset" FromRole="deviceInfo" ToRole="devicePreset" />
+          <NavigationProperty Name="orderInfo" Relationship="DeviceCheckoutModel.FK_orderInfo_deviceInfo" FromRole="deviceInfo" ToRole="orderInfo" />
+        </EntityType>
+        <EntityType Name="devicePreset">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="categoryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="imgURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="deviceInfo" Relationship="DeviceCheckoutModel.FK_deviceInfo_devicePreset" FromRole="devicePreset" ToRole="deviceInfo" />
+        </EntityType>
+        <EntityType Name="orderInfo">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <Property Name="serialId" Type="Int32" Nullable="false" />
+          <Property Name="dateCheckedOut" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateCheckIn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="deviceInfo" Relationship="DeviceCheckoutModel.FK_orderInfo_deviceInfo" FromRole="orderInfo" ToRole="deviceInfo" />
+        </EntityType>
+        <EntityType Name="studentInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="studentId" Type="Int32" Nullable="false" />
+          <Property Name="studentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="nameOfZone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hoursOpen" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="hoursClosed" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="deviceInfo" Relationship="DeviceCheckoutModel.FK_deviceInfo_deviceInfo" FromRole="zone" ToRole="deviceInfo" />
+        </EntityType>
+        <EntityContainer Name="DeviceCheckoutEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="deviceInfo" EntityType="Self.deviceInfo" />
+          <EntitySet Name="devicePreset" EntityType="Self.devicePreset" />
+          <EntitySet Name="orderInfo" EntityType="Self.orderInfo" />
+          <EntitySet Name="studentInfo" EntityType="Self.studentInfo" />
+          <EntitySet Name="zone" EntityType="Self.zone" />
+          <AssociationSet Name="FK_deviceInfo_deviceInfo" Association="DeviceCheckoutModel.FK_deviceInfo_deviceInfo">
+            <End Role="zone" EntitySet="zone" />
+            <End Role="deviceInfo" EntitySet="deviceInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_deviceInfo_devicePreset" Association="DeviceCheckoutModel.FK_deviceInfo_devicePreset">
+            <End Role="devicePreset" EntitySet="devicePreset" />
+            <End Role="deviceInfo" EntitySet="deviceInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orderInfo_deviceInfo" Association="DeviceCheckoutModel.FK_orderInfo_deviceInfo">
+            <End Role="deviceInfo" EntitySet="deviceInfo" />
+            <End Role="orderInfo" EntitySet="orderInfo" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_deviceInfo_deviceInfo">
+          <End Type="DeviceCheckoutModel.zone" Role="zone" Multiplicity="1" />
+          <End Type="DeviceCheckoutModel.deviceInfo" Role="deviceInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zone">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="deviceInfo">
+              <PropertyRef Name="zoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_deviceInfo_devicePreset">
+          <End Type="DeviceCheckoutModel.devicePreset" Role="devicePreset" Multiplicity="1" />
+          <End Type="DeviceCheckoutModel.deviceInfo" Role="deviceInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="devicePreset">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="deviceInfo">
+              <PropertyRef Name="devicePresetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orderInfo_deviceInfo">
+          <End Type="DeviceCheckoutModel.deviceInfo" Role="deviceInfo" Multiplicity="1" />
+          <End Type="DeviceCheckoutModel.orderInfo" Role="orderInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="deviceInfo">
+              <PropertyRef Name="serialId" />
+            </Principal>
+            <Dependent Role="orderInfo">
+              <PropertyRef Name="serialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DeviceCheckoutModelStoreContainer" CdmEntityContainer="DeviceCheckoutEntities">
+          <EntitySetMapping Name="deviceInfo">
+            <EntityTypeMapping TypeName="DeviceCheckoutModel.deviceInfo">
+              <MappingFragment StoreEntitySet="deviceInfo">
+                <ScalarProperty Name="serialId" ColumnName="serialId" />
+                <ScalarProperty Name="devicePresetId" ColumnName="devicePresetId" />
+                <ScalarProperty Name="zoneId" ColumnName="zoneId" />
+                <ScalarProperty Name="imgUrl" ColumnName="imgUrl" />
+                <ScalarProperty Name="specialSw" ColumnName="specialSw" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="os" ColumnName="os" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="ram" ColumnName="ram" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="devicePreset">
+            <EntityTypeMapping TypeName="DeviceCheckoutModel.devicePreset">
+              <MappingFragment StoreEntitySet="devicePreset">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+                <ScalarProperty Name="imgURL" ColumnName="imgURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orderInfo">
+            <EntityTypeMapping TypeName="DeviceCheckoutModel.orderInfo">
+              <MappingFragment StoreEntitySet="orderInfo">
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="serialId" ColumnName="serialId" />
+                <ScalarProperty Name="dateCheckedOut" ColumnName="dateCheckedOut" />
+                <ScalarProperty Name="dateCheckIn" ColumnName="dateCheckIn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="studentInfo">
+            <EntityTypeMapping TypeName="DeviceCheckoutModel.studentInfo">
+              <MappingFragment StoreEntitySet="studentInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="studentId" ColumnName="studentId" />
+                <ScalarProperty Name="studentName" ColumnName="studentName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zone">
+            <EntityTypeMapping TypeName="DeviceCheckoutModel.zone">
+              <MappingFragment StoreEntitySet="zone">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nameOfZone" ColumnName="nameOfZone" />
+                <ScalarProperty Name="hoursOpen" ColumnName="hoursOpen" />
+                <ScalarProperty Name="hoursClosed" ColumnName="hoursClosed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
